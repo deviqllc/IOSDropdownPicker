@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "IOSDropdownPicker.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController<IOSDropdownPickerDataSource, IOSDropdownPickerDelegate>
+{
+    IBOutlet IOSDropdownPicker *dropdownPicker;
+    NSMutableArray *stateCodes;
+}
 
 @end
