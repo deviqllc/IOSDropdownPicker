@@ -11,23 +11,26 @@
 @protocol IOSDropdownPickerDelegate;
 @protocol IOSDropdownPickerDataSource;
 
-@interface IOSDropdownPicker : UIView<UIPickerViewDelegate, UIPickerViewDataSource>
+@interface IOSDropdownPicker : UIControl<UIPickerViewDelegate, UIPickerViewDataSource>
 {
     UIView *dropdownPickerView;
     UIPickerView *pickerView;
     UIButton *dropdownButton;
     UIToolbar *pickerViewToolbar;
+    UILabel *selectedValueLabel;
 }
 
+@property (nonatomic) UIPickerView *pickerView;
 @property (nonatomic, weak) id <IOSDropdownPickerDelegate> delegate;
 @property (nonatomic, weak) id <IOSDropdownPickerDataSource> dataSource;
+@property (nonatomic) NSString *placeholder;
+@property (nonatomic, retain) UIFont *selectedValueFont; // default is nil (system font 17 plain)
+@property (nonatomic) UIImage *dropdownBackground;
 
 @end
 
 @protocol IOSDropdownPickerDelegate <UIPickerViewDelegate>
-@optional
 @end
 
 @protocol IOSDropdownPickerDataSource <UIPickerViewDataSource>
-@optional
 @end    

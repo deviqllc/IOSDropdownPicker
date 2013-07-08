@@ -11,8 +11,11 @@
 
 @interface ViewController : UIViewController<IOSDropdownPickerDataSource, IOSDropdownPickerDelegate>
 {
-    IBOutlet IOSDropdownPicker *dropdownPicker;
-    NSMutableArray *stateCodes;
+    IOSDropdownPicker *dropdownPicker;
+    IOSDropdownPicker *dropdownPicker2;
+
+    NSMutableArray *fooDataSource;
+    NSMutableArray *fooDataSource2;
 }
 
 @end

@@ -18,61 +18,43 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    // Could figure out how to get this to work well in interface builder. Easier to just add it programatically
+    dropdownPicker = [[IOSDropdownPicker alloc] initWithFrame:CGRectMake(30, 10, 168, 19)];
     dropdownPicker.delegate = self;
     dropdownPicker.dataSource = self;
+    dropdownPicker.placeholder = @"Please select";
+    dropdownPicker.dropdownBackground = [UIImage imageNamed:@"dropdown.png"];
     
-    stateCodes = [[NSMutableArray alloc] init];
-    [stateCodes addObject:@"AK"];
-    [stateCodes addObject:@"AL"];
-    [stateCodes addObject:@"AR"];
-    [stateCodes addObject:@"AZ"];
-    [stateCodes addObject:@"CA"];
-    [stateCodes addObject:@"CO"];
-    [stateCodes addObject:@"CT"];
-    [stateCodes addObject:@"DE"];
-    [stateCodes addObject:@"DC"];
-    [stateCodes addObject:@"FL"];
-    [stateCodes addObject:@"GA"];
-    [stateCodes addObject:@"HI"];
-    [stateCodes addObject:@"IA"];
-    [stateCodes addObject:@"ID"];
-    [stateCodes addObject:@"IL"];
-    [stateCodes addObject:@"IN"];
-    [stateCodes addObject:@"KS"];
-    [stateCodes addObject:@"KY"];
-    [stateCodes addObject:@"LA"];
-    [stateCodes addObject:@"MA"];
-    [stateCodes addObject:@"MD"];
-    [stateCodes addObject:@"ME"];
-    [stateCodes addObject:@"MI"];
-    [stateCodes addObject:@"MN"];
-    [stateCodes addObject:@"MO"];
-    [stateCodes addObject:@"MS"];
-    [stateCodes addObject:@"MT"];
-    [stateCodes addObject:@"NC"];
-    [stateCodes addObject:@"ND"];
-    [stateCodes addObject:@"NE"];
-    [stateCodes addObject:@"NH"];
-    [stateCodes addObject:@"NJ"];
-    [stateCodes addObject:@"NM"];
-    [stateCodes addObject:@"NV"];
-    [stateCodes addObject:@"NY"];
-    [stateCodes addObject:@"OH"];
-    [stateCodes addObject:@"OK"];
-    [stateCodes addObject:@"OR"];
-    [stateCodes addObject:@"PA"];
-    [stateCodes addObject:@"RI"];
-    [stateCodes addObject:@"SC"];
-    [stateCodes addObject:@"SD"];
-    [stateCodes addObject:@"TN"];
-    [stateCodes addObject:@"TX"];
-    [stateCodes addObject:@"UT"];
-    [stateCodes addObject:@"VT"];
-    [stateCodes addObject:@"VA"];
-    [stateCodes addObject:@"WA"];
-    [stateCodes addObject:@"WI"];
-    [stateCodes addObject:@"WV"];
-    [stateCodes addObject:@"WY"];
+    // Change the font of the label that contains the choosen value
+    UIFont *font = [UIFont fontWithName:@"Helvetica" size:12];
+    dropdownPicker.selectedValueFont = font;
+    [self.view addSubview:dropdownPicker];
+    
+    dropdownPicker2 = [[IOSDropdownPicker alloc] initWithFrame:CGRectMake(30, 100, 168, 19)];
+    dropdownPicker2.delegate = self;
+    dropdownPicker2.dataSource = self;
+    dropdownPicker2.placeholder = @"Please select";
+    dropdownPicker2.dropdownBackground = [UIImage imageNamed:@"dropdown.png"];
+    
+    // Change the font of the label that contains the choosen value
+    dropdownPicker2.selectedValueFont = font;
+    [self.view addSubview:dropdownPicker2];
+    
+    // Create a data source for the UIPickerView within the IOSDropdownPicker
+    fooDataSource = [[NSMutableArray alloc] init];
+    [fooDataSource addObject:@"Item 1"];
+    [fooDataSource addObject:@"Item 2"];
+    [fooDataSource addObject:@"Item 3"];
+    [fooDataSource addObject:@"Item 4"];
+    [fooDataSource addObject:@"Item 5"];
+    
+    fooDataSource2 = [[NSMutableArray alloc] init];
+    [fooDataSource2 addObject:@"Item 6"];
+    [fooDataSource2 addObject:@"Item 7"];
+    [fooDataSource2 addObject:@"Item 8"];
+    [fooDataSource2 addObject:@"Item 9"];
+    [fooDataSource2 addObject:@"Item 10"];
 }
 
 - (void)didReceiveMemoryWarning
@@ -81,23 +63,38 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark IOSDropdownPickerDataSource Methods
+
+- (NSInteger)pickerView:(UIPickerView *)thePickerView numberOfRowsInComponent:(NSInteger)component
+{
+    if (thePickerView == dropdownPicker.pickerView)
+    {
+        return [fooDataSource count];
+    }
+    else
+    {
+        return [fooDataSource2 count];
+    }
+}
+
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)thePickerView
 {
     return 1;
 }
 
-- (NSInteger)pickerView:(UIPickerView *)thePickerView numberOfRowsInComponent:(NSInteger)component
-{
-    return [stateCodes count];
-}
+#pragma mark UIPickerViewDelegate Methods
+
 
 - (NSString *)pickerView:(UIPickerView *)thePickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
-    return [stateCodes objectAtIndex:row];
-}
-
-- (void)pickerView:(UIPickerView *)thePickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
-{
+    if (thePickerView == dropdownPicker.pickerView)
+    {
+        return [fooDataSource objectAtIndex:row];
+    }
+    else
+    {
+        return [fooDataSource2 objectAtIndex:row];
+    }
 }
 
 @end
