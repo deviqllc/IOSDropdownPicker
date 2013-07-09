@@ -84,7 +84,7 @@
 
 - (void)pickerviewDoneTapped:(id)sender
 {
-    [self removeDropdownPickerView];
+    [self resignDropdownPickerView];
 }
 
 - (void)dropdownButtonTapped:(id)sender
@@ -94,6 +94,11 @@
 
 - (void)showProfilePickerView
 {
+    if ([self.delegate respondsToSelector:@selector(dropdownPickWillShow:)])
+    {
+        [self.delegate dropdownPickWillShow:pickerView];
+    }
+    
     [pickerView selectRow:0 inComponent:0 animated:FALSE];
 
     [UIView beginAnimations:nil context:NULL];
@@ -104,7 +109,7 @@
     [UIView commitAnimations];
 }
 
-- (void)removeDropdownPickerView
+- (void)resignDropdownPickerView
 {
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:0.3];

@@ -27,9 +27,16 @@
 @property (nonatomic, retain) UIFont *selectedValueFont; // default is nil (system font 17 plain)
 @property (nonatomic) UIImage *dropdownBackground;
 
+- (void)showProfilePickerView;
+- (void)resignDropdownPickerView;
+
 @end
 
 @protocol IOSDropdownPickerDelegate <UIPickerViewDelegate>
+
+@optional
+- (void)dropdownPickWillShow:(UIPickerView*)thePickerView;
+
 @end
 
 @protocol IOSDropdownPickerDataSource <UIPickerViewDataSource>

@@ -20,18 +20,17 @@
 	// Do any additional setup after loading the view, typically from a nib.
     
     // Could figure out how to get this to work well in interface builder. Easier to just add it programatically
-    dropdownPicker = [[IOSDropdownPicker alloc] initWithFrame:CGRectMake(30, 10, 168, 19)];
+    dropdownPicker = [[IOSDropdownPicker alloc] initWithFrame:CGRectMake(10, 20, 300, 18)];
     dropdownPicker.delegate = self;
     dropdownPicker.dataSource = self;
     dropdownPicker.placeholder = @"Please select";
-    dropdownPicker.dropdownBackground = [UIImage imageNamed:@"dropdown.png"];
     
     // Change the font of the label that contains the choosen value
     UIFont *font = [UIFont fontWithName:@"Helvetica" size:12];
     dropdownPicker.selectedValueFont = font;
     [self.view addSubview:dropdownPicker];
     
-    dropdownPicker2 = [[IOSDropdownPicker alloc] initWithFrame:CGRectMake(30, 100, 168, 19)];
+    dropdownPicker2 = [[IOSDropdownPicker alloc] initWithFrame:CGRectMake(10, 70, 300, 18)];
     dropdownPicker2.delegate = self;
     dropdownPicker2.dataSource = self;
     dropdownPicker2.placeholder = @"Please select";
@@ -95,6 +94,14 @@
     {
         return [fooDataSource2 objectAtIndex:row];
     }
+}
+
+#pragma mark IOSDropdownPickerDelegate Methods
+
+- (void)dropdownPickWillShow:(UIPickerView*)thePickerView;
+{
+    [dropdownPicker resignDropdownPickerView];
+    [dropdownPicker2 resignDropdownPickerView];
 }
 
 @end
